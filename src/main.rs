@@ -10,7 +10,7 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 #[command(author, version, about, long_about = None)]
 struct Args {
     /// Directory to serve
-    #[arg(short, long)]
+    #[arg(index = 1)]
     dir: PathBuf,
 
     /// IP address to listen on
