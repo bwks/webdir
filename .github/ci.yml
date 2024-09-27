@@ -2,15 +2,34 @@ name: Release
 
 on:
   push:
-    branches: [ main ]
+    branches: ['*']
 
 jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout this repo
+      uses: actions/checkout@v3
+
+    - name: Install Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+
+    - name: Run tests
+      run: cargo test && cargo clippy
+
   release:
-    name: Release on GitHub
+    name: Release
+    needs: test
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout the repo
       uses: actions/checkout@v3
 
     - name: Install Rust toolchain
