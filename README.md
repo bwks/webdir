@@ -4,9 +4,24 @@ WebDir is a super simple web server that serves a directory tree of files.
 
 It is intended to be used test and lab environments. It's not recommended for production environments.
 
+## Download
+Downloads are available from the Github releases page
+
+Download the latest release with curl
+```
+curl -o webdir https://github.com/bwks/webdir/releases/latest/download/webdir-linux-amd64
+```
+
+## Prepare
+
+Set the executable permission
+```
+chmod +x webdir
+```
+
 ## Usage
 ```
-Usage: webdir [OPTIONS] <DIR>
+Usage: ./webdir [OPTIONS] <DIR>
 
 Arguments:
   <DIR>  Directory to serve
