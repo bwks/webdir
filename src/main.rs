@@ -1,7 +1,11 @@
 use std::{net::SocketAddr, path::PathBuf, str::FromStr};
 
 use anyhow::{Context, Result};
-use axum::{routing::get_service, Router};
+use axum::http::StatusCode;
+use axum::response::IntoResponse;
+use axum::routing::{get, get_service};
+use axum::Router;
+
 use clap::Parser;
 use tower_http::{services::ServeDir, trace::TraceLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -37,11 +41,17 @@ fn setup_logging(log_level: &str) -> Result<()> {
         .context("Failed to set up logging")
 }
 
+/// Health Check Endpoint
+async fn health_check() -> impl IntoResponse {
+    StatusCode::OK
+}
+
 /// Build the application with directory to serve.
 fn build_app(dir: PathBuf) -> Router {
     let serve_dir = ServeDir::new(dir);
     Router::new()
         .nest_service("/", get_service(serve_dir))
+        .route("/ruok", get(health_check))
         .layer(TraceLayer::new_for_http())
 }
 
@@ -173,6 +183,19 @@ mod tests {
             .await?;
 
         assert_eq!(response.status(), StatusCode::NOT_FOUND);
+
+        Ok(())
+    }
+    #[tokio::test]
+    async fn test_health_check() -> Result<()> {
+        let temp_dir = TempDir::new()?;
+        let app = build_app(temp_dir.path().to_path_buf());
+
+        let response = app
+            .oneshot(Request::builder().uri("/ruok").body(Body::empty()).unwrap())
+            .await?;
+
+        assert_eq!(response.status(), StatusCode::OK);
 
         Ok(())
     }
