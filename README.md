@@ -40,3 +40,15 @@ webdir /path/to/directory
 2024-09-27T01:55:15.877504Z  INFO webdir: Serving directory: "/path/to/directory"
 2024-09-27T01:55:15.877545Z  INFO webdir: Listening on http://127.0.0.1:13337
 ```
+
+## Docker
+
+### Image Build
+```
+docker image build -t webdir .
+```
+
+### Run Container
+```
+docker container run -d -it -p 13337:13337 -v ./tmp/ztp:/opt/ztp webdir
+```
