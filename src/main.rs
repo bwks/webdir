@@ -22,7 +22,7 @@ struct Args {
     ipv4: String,
 
     /// Port to listen on
-    #[arg(short, long, default_value_t = 13337)]
+    #[arg(short, long, default_value_t = 8080)]
     port: u16,
 
     /// Log level (error, warn, info, debug, trace)
