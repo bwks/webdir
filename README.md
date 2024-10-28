@@ -28,7 +28,7 @@ Arguments:
 
 Options:
   -4, --ipv4 <IPV4>            IP address to listen on [default: 127.0.0.1]
-  -p, --port <PORT>            Port to listen on [default: 13337]
+  -p, --port <PORT>            Port to listen on [default: 8080]
   -l, --log-level <LOG_LEVEL>  Log level (error, warn, info, debug, trace) [default: info]
   -h, --help                   Print help
   -V, --version                Print version
@@ -38,7 +38,7 @@ Options:
 webdir /path/to/directory
 
 2024-09-27T01:55:15.877504Z  INFO webdir: Serving directory: "/path/to/directory"
-2024-09-27T01:55:15.877545Z  INFO webdir: Listening on http://127.0.0.1:13337
+2024-09-27T01:55:15.877545Z  INFO webdir: Listening on http://127.0.0.1:8080
 ```
 
 ## Docker
@@ -50,5 +50,5 @@ docker image build -t webdir .
 
 ### Run Container
 ```
-docker container run -d -it -p 13337:13337 -v ./tmp/ztp:/opt/ztp webdir
+docker container run -d -it -p 8080:8080 -v ./tmp/ztp:/opt/ztp webdir
 ```
