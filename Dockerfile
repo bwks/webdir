@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=builder /usr/src/app/target/release/webdir /usr/local/bin/webdir
 
 # Expose port
-EXPOSE 13337
+EXPOSE 8080
 
 # Run the web service
 CMD ["webdir", "-4", "0.0.0.0", "-l", "debug", "/opt/ztp"]
