@@ -89,7 +89,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./target/x86_64-unknown-linux-musl/release/webdir
-          asset_name: webdir-linux-musl
+          asset_name: webdir-linux-musl-amd64
           asset_content_type: application/octet-stream
 
   container:
